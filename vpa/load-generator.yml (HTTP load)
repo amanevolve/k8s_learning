@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-generator
+  namespace: load-ns
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: load-generator
+  template:
+    metadata:
+      labels:
+        app: load-generator
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["/bin/sh", "-c"]
+        args:
+          - >
+            while true;
+            do wget -q -O- http://notes-svc.notes-ns.svc.cluster.local:82 > /dev/null; #Insert IP
+            sleep 0.05;
+            done;
