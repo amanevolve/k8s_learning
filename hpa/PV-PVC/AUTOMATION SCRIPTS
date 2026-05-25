@@ -1,0 +1,29 @@
+=============================
+AUTOMATION SCRIPTS
+=============================
+
+apply-all.sh
+
+#!/bin/bash
+kubectl apply -f namespace.yml
+kubectl apply -f pv.yml
+kubectl apply -f pvc.yml
+kubectl apply -f secret.yml
+kubectl apply -f configmap.yml
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
+
+Make executable:
+chmod +x apply-all.sh
+
+
+delete-all.sh
+#!/bin/bash
+kubectl delete -f service.yml -n mysql
+kubectl delete -f deployment.yml -n mysql
+kubectl delete -f pvc.yml -n mysql
+kubectl delete -f pv.yml
+kubectl delete secret mysql-secret -n mysql
+kubectl delete configmap mysql-config -n mysql
+kubectl delete namespace mysql
+sudo rm -rf /mnt/data/mysql
